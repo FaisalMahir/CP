@@ -7,8 +7,24 @@ using vll = vector<ll>;
 template<class T> using ordered_set =tree<T, null_type, less<T>, rb_tree_tag,tree_order_statistics_node_update>;
 #define pb push_back
 
-priority_queue<ll> maxheap;
-priority_queue<ll, vll, greater<ll>> minHeap;
+
+void merge(vll &v, ll left, ll mid, ll right){
+    vll res; ll l = left; ll r = mid+1;
+    while(l<=mid || r<=right){
+        if(l>mid || (r<=right && v[l]>v[r])) res.pb(v[r++]);
+        else if(r>right || (l<=mid && v[l]<=v[r])) res.pb(v[l++]);
+    }
+    for(ll i = 0; i < res.size(); i++) v[i+left] = res[i];
+}
+
+
+void mergesort(vll &v, ll left, ll right){
+    if(left>=right) return;
+    ll mid = (left+right)/2;
+    mergesort(v,left,mid);
+    mergesort(v,mid+1,right);
+    merge(v,left,mid,right);
+}
 
 
 ll ModularInverse(ll a, ll m) {
