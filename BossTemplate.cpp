@@ -8,7 +8,8 @@ template<class T> using ordered_set =tree<T, null_type, less<T>, rb_tree_tag,tre
 #define pb push_back
 
 
-void merge(vll &v, ll left, ll mid, ll right){
+// Merge sort Implementation using mg and mergesort
+void mg(vll &v, ll left, ll mid, ll right){
     vll res; ll l = left; ll r = mid+1;
     while(l<=mid || r<=right){
         if(l>mid || (r<=right && v[l]>v[r])) res.pb(v[r++]);
@@ -16,22 +17,23 @@ void merge(vll &v, ll left, ll mid, ll right){
     }
     for(ll i = 0; i < res.size(); i++) v[i+left] = res[i];
 }
-
-
 void mergesort(vll &v, ll left, ll right){
     if(left>=right) return;
     ll mid = (left+right)/2;
     mergesort(v,left,mid);
     mergesort(v,mid+1,right);
-    merge(v,left,mid,right);
+    mg(v,left,mid,right);
 }
 
 
+// Modular inverse of a mod m
 ll ModularInverse(ll a, ll m) {
     if(a<=1) return a;
     else return m-(m/a)*ModularInverse(m%a,m)%m;
 }
 
+
+// Generates Permutation
 void permutation(vll v){
     do{
         for(auto i:v) cout << i << " ";
@@ -49,6 +51,16 @@ void solve(){
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
+
+
+    // Totient function using sieve
+    vll phi(1000001);
+    for(ll i = 0; i <= 1000000; i++) phi[i] = i;
+    for(ll i = 2; i <= 1000000; i++){
+        if(phi[i]==i){
+            for(ll j = i; j <= 1000000; j+=i) phi[j] -= phi[j]/i;
+        }
+    }
 
     // ll tt; cin >> tt;
     // while(tt--)
