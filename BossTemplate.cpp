@@ -56,6 +56,23 @@ void update(ll v, ll l, ll r, ll pos, ll new_val) {
     }
 }
 
+// Fenwick tree for sum with 1-indexing
+vll fenwick;
+ll fenwicksum(ll k) {
+    ll s = 0;
+    while (k >= 1) {
+        s += fenwick[k];
+        k -= k&-k;
+    }
+    return s;
+}
+void fenwickadd(ll k, ll x, ll n) {
+    while (k <= n) {
+        fenwick[k] += x;
+        k += k&-k;
+    }
+}
+
 
 // Modular inverse of a mod m
 ll ModularInverse(ll a, ll m) {
