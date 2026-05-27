@@ -8,6 +8,11 @@ template<class T> using ordered_set =tree<T, null_type, less<T>, rb_tree_tag,tre
 #define pb push_back
 
 
+// MaxHeap and MinHeap
+priority_queue<ll> maxHeap;
+priority_queue<ll, vll, greater<ll>> minHeap;
+
+
 // Merge sort Implementation using mg and mergesort
 void mg(vll &v, ll left, ll mid, ll right){
     vll res; ll l = left; ll r = mid+1;
