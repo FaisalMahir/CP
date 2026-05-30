@@ -95,6 +95,12 @@ void permutation(vll v){
 }
 
 
+// Floor of Log base 2
+ll log2floor(ll i) {
+    return __builtin_clzll(1)-__builtin_clzll(i);
+}
+
+
 void solve(){
 
     
@@ -105,8 +111,21 @@ int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
 
+    ll n;
     MAXN = 1000000;
     seg.assign(4*MAXN,0);
+    vll v(n);
+
+
+    // Sparse Table Implementation
+    vector<vll> sparse(n,vll(log2floor(n)+1,0));
+    for(ll i = 0; i < n; i++) sparse[i][0] = v[i];
+    for(ll j = 1; j <= log2floor(n)+1; j++){
+        for(ll i = 0; i+(1<<j) < n; i++){
+            sparse[i][j] = sparse[i][j-1] | sparse[i+(1<<(j-1))][j-1];
+        }
+    }
+
 
     // Totient function using sieve
     vll phi(1000001);
