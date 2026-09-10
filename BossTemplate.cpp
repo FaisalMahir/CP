@@ -142,6 +142,22 @@ vector<pt> convexHull(vector<pt> pts){
 }
 
 
+
+double durotto(pt A, pt B){
+    double dx = A.x - B.x;
+    double dy = A.y - B.y;
+    return sqrt(dx*dx + dy*dy);
+}
+
+double angle(pt A, pt B, pt C){
+    double ang = dot(sub(A,B),sub(C,B));
+    ang /= durotto(A,B); ang /= durotto(B,C);
+    ang = max(-1.0,min(1.0,ang));
+    return (acos(ang))*180/acos(-1);
+}
+
+
+
 void solve(){
 
     
