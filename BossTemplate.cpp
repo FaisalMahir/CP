@@ -157,6 +157,30 @@ double angle(pt A, pt B, pt C){
 }
 
 
+// Using Big Int
+__int128 read128() {
+    __int128 x = 0;
+    int f = 1;
+    char ch = getchar();
+    while (ch != '-' && (ch < '0' || ch > '9')) ch = getchar();
+    if (ch == '-') { f = -1; ch = getchar(); }
+    while (ch >= '0' && ch <= '9') {
+        x = x * 10 + (ch - '0');
+        ch = getchar();
+    }
+    return x * f;
+}
+
+void print128(__int128 x) {
+    if (x < 0) {
+        putchar('-');
+        x = -x;
+    }
+    if (x > 9) print128(x / 10);
+    putchar(x % 10 + '0');
+}
+
+
 
 void solve(){
 
