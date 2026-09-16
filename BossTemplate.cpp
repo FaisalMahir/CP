@@ -38,15 +38,16 @@ typedef struct {
     ll val;
 } node;
 vector<node> seg;
+vector<node> a;
 node combine(node a, node b){
     return {a.val+b.val};
 }
-void build(ll a[], ll v, ll l, ll r) {
-    if(l==r) seg[v].val = a[l];
+void build(ll v, ll l, ll r) {
+    if(l==r) seg[v] = a[l];
     else{
         ll mid = (l+r)/2;
-        build(a, v*2, l, mid);
-        build(a, v*2+1, mid+1, r);
+        build(v*2, l, mid);
+        build(v*2+1, mid+1, r);
         seg[v] = combine(seg[v*2], seg[v*2+1]);
     }
 }
@@ -65,6 +66,7 @@ void update(ll v, ll l, ll r, ll pos, ll new_val) {
         seg[v] = combine(seg[v*2], seg[v*2+1]);
     }
 }
+
 
 // Fenwick tree for sum with 1-indexing
 vll fenwick;
@@ -153,6 +155,7 @@ double angle(pt A, pt B, pt C){
     ang = max(-1.0,min(1.0,ang));
     return (acos(ang))*180/acos(-1);
 }
+
 
 
 // DSU - Disjoint Set Union
