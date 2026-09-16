@@ -141,8 +141,6 @@ vector<pt> convexHull(vector<pt> pts){
     return hull;
 }
 
-
-
 double durotto(pt A, pt B){
     double dx = A.x - B.x;
     double dy = A.y - B.y;
@@ -155,6 +153,22 @@ double angle(pt A, pt B, pt C){
     ang = max(-1.0,min(1.0,ang));
     return (acos(ang))*180/acos(-1);
 }
+
+
+// DSU - Disjoint Set Union
+vll parent,dep;
+ll get(ll n){
+    if(parent[n] == n) return n;
+    return parent[n] = get(parent[n]);
+}
+void unite(ll a, ll b){
+    a = get(a); b = get(b);
+    if(a == b) return;
+    if(dep[a] < dep[b]) swap(a, b);
+    parent[b] = a;
+    if(dep[a] == dep[b]) dep[a]++;
+}
+
 
 
 // Using Big Int
