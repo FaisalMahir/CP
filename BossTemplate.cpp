@@ -8,6 +8,8 @@ using vll = vector<ll>;
 template<class T> using ordered_set =tree<T, null_type, less<T>, rb_tree_tag,tree_order_statistics_node_update>;
 #define pb push_back
 
+ll INF = LLONG_MAX;
+
 
 // MaxHeap and MinHeap
 priority_queue<ll> maxHeap;
@@ -33,7 +35,6 @@ void mergesort(vll &v, ll left, ll right){
 
 
 // Segment Tree Implementation
-ll MAXN;
 typedef struct {
     ll val;
 } node;
@@ -65,6 +66,35 @@ void update(ll v, ll l, ll r, ll pos, ll new_val) {
         else update(v*2+1, mid+1, r, pos, new_val);
         seg[v] = combine(seg[v*2], seg[v*2+1]);
     }
+}
+
+
+// Djikstra's Algorithm for shortest path
+vector<ll> dijkstra(int src, vector<int>& parent) {
+    int n, m;
+    vector<vector<pair<int, ll>>> adj; 
+
+    vector<ll> dist(n + 1, INF);
+    parent.assign(n + 1, -1);
+    priority_queue<pair<ll, int>, vector<pair<ll, int>>, greater<>> pq;
+
+    dist[src] = 0;
+    pq.push({0, src});
+
+    while (!pq.empty()) {
+        auto [d, u] = pq.top();
+        pq.pop();
+        if (d > dist[u]) continue;
+
+        for (auto [v, w] : adj[u]) {
+            if (dist[u] + w < dist[v]) {
+                dist[v] = dist[u] + w;
+                parent[v] = u;
+                pq.push({dist[v], v});
+            }
+        }
+    }
+    return dist;
 }
 
 
@@ -267,8 +297,7 @@ int main(){
     cin.tie(0);
 
     ll n;
-    MAXN = 1000000;
-    seg.assign(4*MAXN,{0});
+    seg.assign(4*n,{0});
     vll v(n);
 
 
