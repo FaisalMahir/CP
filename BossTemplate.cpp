@@ -69,6 +69,29 @@ void update(ll v, ll l, ll r, ll pos, ll new_val) {
 }
 
 
+// Longest Increasing Subsequence
+vll LIS(vll a){
+    ll n = a.size();
+    vll d; vll p(n);
+    for(ll i = 0; i < n; i++){
+        auto it = lower_bound(d.begin(), d.end(), a[i]);
+        p[i] = it-d.begin();
+        if(it == d.end()) d.pb(a[i]);
+        else *it = a[i];
+    }
+    ll l = d.size()-1;
+    vll ans;
+    for(ll i = n-1; i >= 0; i--){
+        if(p[i]==l){
+            ans.pb(a[i]);
+            l--;
+        }
+    }
+    reverse(ans.begin(), ans.end());
+    return ans;
+}
+
+
 // Djikstra's Algorithm for shortest path
 vector<ll> dijkstra(int src, vector<int>& parent) {
     int n, m;
