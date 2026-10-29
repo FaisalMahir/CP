@@ -34,6 +34,17 @@ void mergesort(vll &v, ll left, ll right){
 }
 
 
+// Kadane's Algorithm
+ll kadane(vll a) {
+    ll cur = a[0]; ll ans = a[0];
+    for (ll i = 1; i < a.size(); i++) {
+        cur = max(a[i], cur + a[i]);
+        ans = max(ans, cur);
+    }
+    return ans;
+}
+
+
 // Segment Tree Implementation
 typedef struct {
     ll val;
