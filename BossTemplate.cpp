@@ -80,6 +80,20 @@ void update(ll v, ll l, ll r, ll pos, ll new_val) {
 }
 
 
+// Permutation Generation
+void perm(vll &v, ll pos){
+    if(pos==v.size()){
+        for(ll i = 0; i < v.size(); i++) cout << v[i] << " \n"[i==v.size()-1];
+        return;
+    }
+    for(ll i = pos; i < v.size(); i++){
+        swap(v[pos],v[i]);
+        perm(v,pos+1);
+        swap(v[pos],v[i]);
+    }
+}
+
+
 // Longest Increasing Subsequence
 vll LIS(vll a){
     ll n = a.size();
